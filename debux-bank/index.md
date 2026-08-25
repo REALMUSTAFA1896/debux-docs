@@ -41,8 +41,7 @@ would rather import it yourself.
 
 ## Interface
 
-Built with React and Vite. The compiled bundle ships with the resource, so **you do not need Node to
-run it** — only to modify it.
+The interface ships compiled with the resource. There is nothing to build and nothing to install.
 
 Fonts are embedded. Nothing is fetched from a CDN at runtime, so the interface looks identical on a
 server with no outbound internet.

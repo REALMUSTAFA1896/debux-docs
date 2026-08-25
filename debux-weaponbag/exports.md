@@ -9,9 +9,6 @@ exports['debux-weaponbag']:useBag(event, item, inventory, slot)
 exports['debux-weaponbag']:GetBag(bagId)
 ```
 
-Both kept the names they had in the previous release. Only the resource prefix changed, so
-`exports['bupa-weaponbag']:GetBag(id)` becomes `exports['debux-weaponbag']:GetBag(id)`.
-
 ### useBag
 
 This is the ox_inventory item hook, not something you call yourself. It goes in your item definition:
@@ -209,9 +206,6 @@ add_ace group.admin debux.weaponbag allow
 Config.Permissions.UseAce = true
 Config.Permissions.Ace    = 'debux.weaponbag'
 ```
-
-Renamed from `bupa.weaponbag`. The old ace does nothing on this build — either update your
-`server.cfg`, or set `Config.Permissions.Ace = 'bupa.weaponbag'` to keep it.
 
 The check is off until `UseAce = true`, which catches people out. Granting the ace on its own changes
 nothing.

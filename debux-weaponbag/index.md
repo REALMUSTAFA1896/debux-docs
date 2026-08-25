@@ -83,19 +83,8 @@ never match and the ace permission is the only way to give staff access to other
 
 ## Interface
 
-React and Vite. The compiled bundle in `ui/build` ships with the resource, so **you do not need Node
-to run it** — only to change it.
+The interface ships compiled with the resource. There is nothing to build and nothing to install.
 
 Fonts and sounds are bundled, nothing is fetched at runtime, and the interface looks the same on a
 server with no outbound internet. Weapon pictures are the exception: they are pulled from your own
 inventory's image folder so they match what players already recognise.
-
-## Upgrading from the previous release
-
-This resource was previously published under a different name. Two things moved:
-
-- the ace permission is now `debux.weaponbag`, renamed from `bupa.weaponbag`
-- the table is now `debux_weaponbags`, renamed from `bupa_weaponbags`
-
-Existing bags are in the old table and will not be found until you deal with it. See
-[Installation](./installation#upgrading-from-the-previous-release) for the two ways to do that.

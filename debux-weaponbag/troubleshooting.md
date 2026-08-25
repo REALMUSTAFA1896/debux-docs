@@ -96,13 +96,6 @@ Or your `server.cfg` still grants the old name. It was renamed:
 add_ace group.admin debux.weaponbag allow
 ```
 
-If you would rather not change every server that has the old line, point the config back at it
-instead:
-
-```lua
-Config.Permissions.Ace = 'bupa.weaponbag'
-```
-
 ## Contents
 
 **"Empty the bag before picking it up."** The bag has something in it and there is nowhere to store
@@ -188,22 +181,6 @@ to `Config.CategoryOverrides` — that lookup runs before the `weapon_` check, s
 works there.
 
 ## Bags went missing
-
-**Every bag disappeared after the update.** The resource renames `bupa_weaponbags` to
-`debux_weaponbags` on first start, but it skips the rename if an empty `debux_weaponbags` already
-exists. Check both:
-
-```sql
-SELECT COUNT(*) FROM `bupa_weaponbags`;
-SELECT COUNT(*) FROM `debux_weaponbags`;
-```
-
-If the old one has the rows and the new one is empty, drop the empty table and restart the resource —
-it renames the old one for you:
-
-```sql
-DROP TABLE `debux_weaponbags`;
-```
 
 **A bag disappeared on its own, with weapons in it.** `Config.Bag.Despawn` is above `0`. When it
 fires, the row and everything in it is deleted, with no notification and no webhook entry. Set it

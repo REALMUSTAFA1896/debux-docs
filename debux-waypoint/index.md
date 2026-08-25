@@ -66,8 +66,8 @@ you run a framework.
 
 ## Interface
 
-React and Vite. The compiled bundle ships with the resource and is served straight from it, so **you
-do not need Node to run this** — there is nothing to build and nothing to install.
+The interface ships compiled with the resource and is served straight from it. There is nothing to
+build and nothing to install.
 
 Fonts and the voice clips are bundled. Nothing is fetched from a CDN at runtime, so the panel looks
 and sounds the same on a server with no outbound internet.

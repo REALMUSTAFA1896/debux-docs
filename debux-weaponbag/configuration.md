@@ -375,7 +375,7 @@ A bag belongs to whoever placed it. Every setting here widens that.
 | `InspectCanTake` | `true` | `false` lets those jobs look but neither take nor store. The interface shows *"You may look, but not take anything out"*. |
 | `AnyoneCanPickUp` | `false` | `true` lets any player carry off any bag. |
 | `UseAce` | `false` | Turns on the ace check. Off by default, so the ace does nothing until you set this. |
-| `Ace` | `'debux.weaponbag'` | The ace object checked. Renamed from `bupa.weaponbag`. |
+| `Ace` | `'debux.weaponbag'` | The ace object checked. |
 
 The ace is checked in the same place as the inspect jobs, so a player who holds it gets the same
 rights: open any bag, and — because picking up also accepts an inspector — pick up any bag. It works
@@ -490,10 +490,6 @@ the table and its index before running, so automatic creation still works.
 > The name is read once when the resource starts, and every query uses it. Point it at a different
 > table and the bags in the old one are not deleted, but they stop existing as far as the resource is
 > concerned and the world objects vanish. Point it back and they return.
->
-> This is also the supported way to upgrade from the previous release without touching your database:
-> set it to `'bupa_weaponbags'`. See
-> [Installation](./installation#upgrading-from-the-previous-release).
 
 ```lua
 Config.SlotMap = {}

@@ -187,12 +187,6 @@ Config.Permissions.UseAce = true
 Config.Permissions.Ace    = 'debux.weaponbag'
 ```
 
-> **Note — Renamed from bupa.weaponbag**
->
-> If you are upgrading, your `server.cfg` almost certainly still grants `bupa.weaponbag`. That ace no
-> longer does anything. Change the line to `debux.weaponbag`, or set `Config.Permissions.Ace` back to
-> `'bupa.weaponbag'` if you would rather not touch every server that has it.
-
 The ace carries the same rights as a job on `Config.Permissions.InspectJobs` — it opens any bag, and
 it also allows picking any bag up.
 
@@ -228,30 +222,3 @@ something you did not expect, set `Config.Inventory` by hand — see
 | Target the bag | Two options: open it, pick it up |
 | `SELECT * FROM debux_weaponbags` | One row per placed bag |
 | Restart the server | Placed bags are still there |
-
-
-## Upgrading from the previous release
-
-The resource used to ship under a different name, and the table came with it. On first start the
-resource looks for `bupa_weaponbags` and renames it to `debux_weaponbags` itself, so every placed bag
-survives. The console says so when it happens:
-
-```
-[debux-weaponbag] Renamed `bupa_weaponbags` to `debux_weaponbags`, existing bags kept.
-```
-
-If both tables already exist the rename is skipped and the new, empty one is used. Check which one
-holds your bags and drop the empty table, then restart the resource:
-
-```sql
-SELECT COUNT(*) FROM `bupa_weaponbags`;
-SELECT COUNT(*) FROM `debux_weaponbags`;
-DROP TABLE `debux_weaponbags`;
-```
-
-Two things the resource cannot do for you. The ace is now `debux.weaponbag` — see
-[step 7](#_7-ace-permission-optional). And your inventory item entry points at the old resource:
-`server.export` is now `debux-weaponbag.useBag`.
-
-The exports kept their names (`useBag`, `GetBag`); only the prefix changed, so
-`exports['bupa-weaponbag']:GetBag(id)` becomes `exports['debux-weaponbag']:GetBag(id)`.
