@@ -2,19 +2,19 @@
 
 ## 1. Drop it in
 
-Put the `debux_bank` folder in your resources directory. We recommend a `[debux]` folder so every
+Put the `debux-bank` folder in your resources directory. We recommend a `[debux]` folder so every
 DebuX resource starts together:
 
 ```
 resources/
 └── [debux]/
-    └── debux_bank/
+    └── debux-bank/
 ```
 
 ## 2. Database
 
 The tables are created automatically the first time the resource starts. If your MySQL user cannot
-run `CREATE TABLE`, import `sql/debux_bank.sql` by hand instead.
+run `CREATE TABLE`, import `sql/debux-bank.sql` by hand instead.
 
 Seven tables are created, all prefixed `debux_`:
 

@@ -10,7 +10,7 @@ same value, but a target zone you added by hand does not.
 
 **The animation plays but the panel never appears.** Look at the server console. If you see an
 oxmysql error, the tables were not created — check that your MySQL user has `CREATE TABLE`, or import
-`sql/debux_bank.sql` manually.
+`sql/debux-bank.sql` manually.
 
 **Mouse cursor stuck after an error.** Restart the resource. If it happens repeatedly, send us the
 console error — the interface releases focus on every exit path, so a stuck cursor means something

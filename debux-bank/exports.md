@@ -5,17 +5,17 @@ All exports are **server-side**.
 ## Money
 
 ```lua
-exports.debux_bank:GetAccount(citizenId)
-exports.debux_bank:AddMoney(citizenId, amount, reason)
-exports.debux_bank:RemoveMoney(citizenId, amount, reason)
-exports.debux_bank:GetCreditScore(citizenId)
+exports['debux-bank']:GetAccount(citizenId)
+exports['debux-bank']:AddMoney(citizenId, amount, reason)
+exports['debux-bank']:RemoveMoney(citizenId, amount, reason)
+exports['debux-bank']:GetCreditScore(citizenId)
 ```
 
 `GetAccount` returns the player's personal account row, or `nil`. `AddMoney` and `RemoveMoney` return
 `true` on success, or `false` plus an error string.
 
 ```lua
-local ok, err = exports.debux_bank:RemoveMoney(citizenId, 500, 'Parking fine')
+local ok, err = exports['debux-bank']:RemoveMoney(citizenId, 500, 'Parking fine')
 if not ok then print(err) end   -- 'insufficient_funds' | 'account_frozen' | 'no_account'
 ```
 
@@ -25,9 +25,9 @@ you passed.
 ## Society accounts
 
 ```lua
-exports.debux_bank:GetSocietyAccount(jobName)
-exports.debux_bank:AddSocietyMoney(jobName, amount)
-exports.debux_bank:RemoveSocietyMoney(jobName, amount)
+exports['debux-bank']:GetSocietyAccount(jobName)
+exports['debux-bank']:AddSocietyMoney(jobName, amount)
+exports['debux-bank']:RemoveSocietyMoney(jobName, amount)
 ```
 
 `jobName` is the job name, not its label — `'mechanic'`, not `'Mechanic'`. The account is created on
@@ -36,8 +36,8 @@ first use.
 ## Loans
 
 ```lua
-exports.debux_bank:ApproveLoan(loanId, approverSource)
-exports.debux_bank:RejectLoan(loanId, approverSource)
+exports['debux-bank']:ApproveLoan(loanId, approverSource)
+exports['debux-bank']:RejectLoan(loanId, approverSource)
 ```
 
 Both re-check `Config.Loans.approverJob` server-side, so you cannot approve a loan by calling these
@@ -54,16 +54,16 @@ set `Config.Loans.requireApproval = false` and loans pay out immediately.
 
 ## Renewed-Banking compatibility
 
-`debux_bank` declares `provide 'renewed-banking'` and implements the exports third-party scripts
+`debux-bank` declares `provide 'renewed-banking'` and implements the exports third-party scripts
 actually call, so you can stop Renewed-Banking and keep everything that talked to it working:
 
 ```lua
-exports.debux_bank:getAccountMoney(account)
-exports.debux_bank:addAccountMoney(account, amount)
-exports.debux_bank:removeAccountMoney(account, amount)
-exports.debux_bank:getAccountTransactions(account, limit)
-exports.debux_bank:createJobAccount(jobName, label)
-exports.debux_bank:handleTransaction(account, title, amount, message, issuer, receiver, type)
+exports['debux-bank']:getAccountMoney(account)
+exports['debux-bank']:addAccountMoney(account, amount)
+exports['debux-bank']:removeAccountMoney(account, amount)
+exports['debux-bank']:getAccountTransactions(account, limit)
+exports['debux-bank']:createJobAccount(jobName, label)
+exports['debux-bank']:handleTransaction(account, title, amount, message, issuer, receiver, type)
 ```
 
 `account` accepts a job name, an account number or a citizen id — resolved in that order.
@@ -77,8 +77,8 @@ exports.debux_bank:handleTransaction(account, title, amount, message, issuer, re
 ## Client events
 
 ```lua
-TriggerEvent('debux_bank:client:openBank')
-TriggerEvent('debux_bank:client:openAtm')
+TriggerEvent('debux-bank:client:openBank')
+TriggerEvent('debux-bank:client:openAtm')
 ```
 
 Both play the card animation and open the panel. The server still verifies the player is actually at
