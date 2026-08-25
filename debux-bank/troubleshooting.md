@@ -24,16 +24,6 @@ threw before that.
 UPDATE debux_cards SET locked = 0, attempts = 0 WHERE owner = 'CITIZENID';
 ```
 
-**Everyone's PIN stopped working at once.** You changed `debux_bank_salt` after players had set
-PINs. Either put the old salt back, or reset every PIN to the default:
-
-```sql
-UPDATE debux_cards SET pin = NULL, attempts = 0, locked = 0;
-```
-
-A card with a `NULL` pin falls back to `Config.Cards.defaultPin` and the player is asked to create a
-new one.
-
 **A player says they were never asked for a PIN.** `Config.Cards.pinOnOpen` is `false`, or
 `pinGraceMinutes` is high enough that they were still inside the grace window.
 
@@ -94,11 +84,6 @@ job a player holds when they open the bank, including `unemployed`. Delete it an
 back unless someone with that job opens the bank again.
 
 ## Interface
-
-**The font looks wrong.** The fonts are embedded, so this is not a network problem. If you rebuilt
-the interface, make sure `web/src/fonts/` came along — `tokens.css` imports `fonts.css` from there.
-
-**Changes to `web/src` do nothing.** The server loads `web/dist`, not `web/src`. Run `npm run build`.
 
 **The interface is blank.** Open the NUI dev tools (`/nuidevtools` or F8 → `nui_devtools`) and read
 the console. A JavaScript error there is almost always a locale key or a missing field in a custom

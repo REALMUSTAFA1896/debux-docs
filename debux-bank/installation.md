@@ -75,28 +75,3 @@ Walk to a bank or an ATM and press `[E]` — or use the target if you have one i
 | Any ATM | 420px panel with four actions |
 | `SELECT * FROM debux_accounts` | One row per player who has opened the bank |
 | Console on start | Version banner, no errors |
-
-## Setting a PIN salt
-
-Card PINs are hashed with a server-side salt. Set your own so two servers never produce the same
-hash:
-
-```cfg
-set debux_bank_salt "something-long-and-random"
-```
-
-Do this **before** players create PINs. Changing it later invalidates every existing PIN and every
-card falls back to the default.
-
-## Modifying the interface
-
-Only needed if you want to change the design.
-
-```bash
-cd debux_bank/web
-npm install
-npm run dev     # browser preview with mock data
-npm run build   # writes web/dist, which is what the server loads
-```
-
-Design tokens — every colour, radius and font size — live in `web/src/styles/tokens.css`.

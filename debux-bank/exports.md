@@ -89,7 +89,6 @@ a branch, so triggering `openBank` in the middle of nowhere fails with `not_at_b
 | Command | Where | What |
 | --- | --- | --- |
 | `/bank` | Client | Opens the panel if the player is at a branch |
-| `debuxnews` | Server console | Forces an immediate version and news check |
 
 ## What is deliberately not exported
 
