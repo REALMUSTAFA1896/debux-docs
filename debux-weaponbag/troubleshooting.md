@@ -189,30 +189,21 @@ works there.
 
 ## Bags went missing
 
-**Every bag disappeared after the update.** The table was renamed with the resource. Your bags are in
-`bupa_weaponbags` and the new build created an empty `debux_weaponbags`.
-
-Check both:
+**Every bag disappeared after the update.** The resource renames `bupa_weaponbags` to
+`debux_weaponbags` on first start, but it skips the rename if an empty `debux_weaponbags` already
+exists. Check both:
 
 ```sql
 SELECT COUNT(*) FROM `bupa_weaponbags`;
 SELECT COUNT(*) FROM `debux_weaponbags`;
 ```
 
-If the old one has the rows and the new one is empty, drop the empty table and rename:
+If the old one has the rows and the new one is empty, drop the empty table and restart the resource —
+it renames the old one for you:
 
 ```sql
 DROP TABLE `debux_weaponbags`;
-RENAME TABLE `bupa_weaponbags` TO `debux_weaponbags`;
 ```
-
-Or leave the database alone and point the resource back at the old name:
-
-```lua
-Config.Table = 'bupa_weaponbags'
-```
-
-Restart the resource either way.
 
 **A bag disappeared on its own, with weapons in it.** `Config.Bag.Despawn` is above `0`. When it
 fires, the row and everything in it is deleted, with no notification and no webhook entry. Set it

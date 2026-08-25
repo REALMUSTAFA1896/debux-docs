@@ -232,38 +232,26 @@ something you did not expect, set `Config.Inventory` by hand — see
 
 ## Upgrading from the previous release
 
-The resource used to ship under a different name, and the table came with it. Existing bags are in
-`bupa_weaponbags` and the new build reads `debux_weaponbags`, so on first start it creates an empty
-table and every placed bag looks lost.
+The resource used to ship under a different name, and the table came with it. On first start the
+resource looks for `bupa_weaponbags` and renames it to `debux_weaponbags` itself, so every placed bag
+survives. The console says so when it happens:
 
-Pick one. Rename the table:
-
-```sql
-RENAME TABLE `bupa_weaponbags` TO `debux_weaponbags`;
+```
+[debux-weaponbag] Renamed `bupa_weaponbags` to `debux_weaponbags`, existing bags kept.
 ```
 
-Or point the resource back at the old name in `config.lua`:
-
-```lua
-Config.Table = 'bupa_weaponbags'
-```
-
-Both work. The rename is tidier; keeping the old name is safer if anything else in your database
-references it.
-
-::: warning Do not do both, and do not leave both tables
-If you rename the table **and** the new build has already created an empty `debux_weaponbags`, the
-rename fails because the target already exists. Drop the empty one first, after checking it really is
-empty:
+If both tables already exist the rename is skipped and the new, empty one is used. Check which one
+holds your bags and drop the empty table, then restart the resource:
 
 ```sql
+SELECT COUNT(*) FROM `bupa_weaponbags`;
 SELECT COUNT(*) FROM `debux_weaponbags`;
 DROP TABLE `debux_weaponbags`;
-RENAME TABLE `bupa_weaponbags` TO `debux_weaponbags`;
 ```
-:::
 
-Also update the ace permission — see [step 7](#_7-ace-permission-optional). The exports kept their
-names (`useBag`, `GetBag`); only the resource prefix changed, so anything calling
-`exports['bupa-weaponbag']:GetBag(id)` becomes `exports['debux-weaponbag']:GetBag(id)`. Your
-ox_inventory item entry needs the same change: `server.export` is now `debux-weaponbag.useBag`.
+Two things the resource cannot do for you. The ace is now `debux.weaponbag` — see
+[step 7](#_7-ace-permission-optional). And your inventory item entry points at the old resource:
+`server.export` is now `debux-weaponbag.useBag`.
+
+The exports kept their names (`useBag`, `GetBag`); only the prefix changed, so
+`exports['bupa-weaponbag']:GetBag(id)` becomes `exports['debux-weaponbag']:GetBag(id)`.
