@@ -42,12 +42,12 @@ Config.KeepWeaponMetadata = true
 | `Target` | `'auto'` | Detects `ox_target`, then `qb-target`, then `qtarget`. |
 | `KeepWeaponMetadata` | `true` | Carries ammo, attachments, serial numbers and durability with a weapon as it moves in and out of the bag, and lets a loaded bag be picked up. |
 
-::: danger Turning KeepWeaponMetadata off stops loaded bags being picked up
-Contents are stored on the item when a bag is picked up, and metadata is the only place to put them.
-With `KeepWeaponMetadata = false` — or on a classic ESX inventory, which has no metadata at all — a
-bag with anything in it is refused with *"Empty the bag before picking it up"*. Nothing is lost, but
-the player has to unload the bag by hand before it can be carried.
-:::
+> **Warning — Turning KeepWeaponMetadata off stops loaded bags being picked up**
+>
+> Contents are stored on the item when a bag is picked up, and metadata is the only place to put them.
+> With `KeepWeaponMetadata = false` — or on a classic ESX inventory, which has no metadata at all — a
+> bag with anything in it is refused with *"Empty the bag before picking it up"*. Nothing is lost, but
+> the player has to unload the bag by hand before it can be carried.
 
 Detection reads which resources are running at the moment `debux-weaponbag` starts, so it must be
 started after your inventory and your target. Check the startup banner to see what it picked.
@@ -79,12 +79,12 @@ Config.Bag = {
 The model chosen here is only the object in the world. The picture inside the interface is fixed and
 unrelated — changing one does not change the other.
 
-::: warning No usable model means the bag cannot be placed
-If neither `Model` nor any fallback exists, the client prints *"no usable bag model"* on start and
-using the item fails with *"The bag model is missing on this server"*. Placed bags already in the
-database are also invisible, because there is nothing to spawn — they are not deleted, and they come
-back as soon as a working model exists.
-:::
+> **Note — No usable model means the bag cannot be placed**
+>
+> If neither `Model` nor any fallback exists, the client prints *"no usable bag model"* on start and
+> using the item fails with *"The bag model is missing on this server"*. Placed bags already in the
+> database are also invisible, because there is nothing to spawn — they are not deleted, and they come
+> back as soon as a working model exists.
 
 ## Placement
 
@@ -132,12 +132,12 @@ BlockInWater   = true,
 
 Placement is also refused while the player is falling or ragdolled, which is not configurable.
 
-::: danger SnapToGround = false makes placement impossible
-The confirm key only works when the ground under the preview has been found, and the ground is only
-looked for when `SnapToGround` is `true`. Setting it to `false` leaves the preview permanently in the
-blocked state — `E` does nothing but show *"You cannot place the bag here"*, and the only way out is
-`X`. Leave it on.
-:::
+> **Warning — SnapToGround = false makes placement impossible**
+>
+> The confirm key only works when the ground under the preview has been found, and the ground is only
+> looked for when `SnapToGround` is `true`. Setting it to `false` leaves the preview permanently in the
+> blocked state — `E` does nothing but show *"You cannot place the bag here"*, and the only way out is
+> `X`. Leave it on.
 
 ### Controls during placement
 
@@ -206,12 +206,12 @@ DespawnCheck  = 30,
 The timer only runs while nobody is within `DespawnRadius`, and it is kept in memory, so a server
 restart starts every bag's countdown again. Bags themselves always survive a restart.
 
-::: danger Despawn deletes the contents with the bag
-This is not a "return it to the owner" timer. When it fires, the row is deleted from
-`debux_weaponbags` and every weapon inside the bag is gone with it. There is no webhook for a
-despawn and no notification to the owner. Leave it at `0` unless players are genuinely littering the
-map, and if you do turn it on, pick a number in hours rather than minutes.
-:::
+> **Warning — Despawn deletes the contents with the bag**
+>
+> This is not a "return it to the owner" timer. When it fires, the row is deleted from
+> `debux_weaponbags` and every weapon inside the bag is gone with it. There is no webhook for a
+> despawn and no notification to the owner. Leave it at `0` unless players are genuinely littering the
+> map, and if you do turn it on, pick a number in hours rather than minutes.
 
 ## Pockets
 
@@ -240,15 +240,15 @@ holding 50.
 Adding a pocket is one entry here plus a `slot_<id>` line in every locale file you use. The interface
 lays itself out from this list, so nothing needs rebuilding.
 
-::: danger Removing or renaming a pocket loses what is in it
-Contents are stored against the pocket id. When a bag is picked up and put back down, everything is
-re-checked against the current `Config.Slots` — anything whose pocket id no longer exists, or that no
-longer fits the pocket it was in, is silently dropped and does not come back. Bags already on the
-ground keep the orphaned entries in the database, but the interface cannot show them and the player
-cannot take them out, while they still count towards the bag being full.
-
-Make players empty their bags before you change `Config.Slots` on a live server.
-:::
+> **Warning — Removing or renaming a pocket loses what is in it**
+>
+> Contents are stored against the pocket id. When a bag is picked up and put back down, everything is
+> re-checked against the current `Config.Slots` — anything whose pocket id no longer exists, or that no
+> longer fits the pocket it was in, is silently dropped and does not come back. Bags already on the
+> ground keep the orphaned entries in the database, but the interface cannot show them and the player
+> cannot take them out, while they still count towards the bag being full.
+>
+> Make players empty their bags before you change `Config.Slots` on a live server.
 
 ## Categories
 
@@ -267,26 +267,26 @@ Config.CategoryRules = {
 Matching runs on the lowercased item name, as a plain substring, and **the first rule that matches
 wins**. Order decides ties, and it decides more of them than it looks.
 
-::: warning Submachine guns are categorised as primary
-The `primary` rule contains the needle `mg`, meant for `weapon_combatmg`. `smg` also contains `mg`,
-and `primary` is checked first — so `weapon_smg`, `weapon_microsmg`, `weapon_assaultsmg` and
-`weapon_minismg` all come out as `primary`, not `smg`. In practice they still fit the SMG pocket,
-because it accepts both categories, but they also take up a full-length rifle pocket and they are
-labelled *Primary* in the interface.
-
-If you want them separated, name them explicitly:
-
-```lua
-Config.CategoryOverrides = {
-    ['weapon_smg']        = 'smg',
-    ['weapon_microsmg']   = 'smg',
-    ['weapon_assaultsmg'] = 'smg',
-    ['weapon_minismg']    = 'smg',
-}
-```
-
-Overrides are checked before any rule, so this wins.
-:::
+> **Note — Submachine guns are categorised as primary**
+>
+> The `primary` rule contains the needle `mg`, meant for `weapon_combatmg`. `smg` also contains `mg`,
+> and `primary` is checked first — so `weapon_smg`, `weapon_microsmg`, `weapon_assaultsmg` and
+> `weapon_minismg` all come out as `primary`, not `smg`. In practice they still fit the SMG pocket,
+> because it accepts both categories, but they also take up a full-length rifle pocket and they are
+> labelled *Primary* in the interface.
+>
+> If you want them separated, name them explicitly:
+>
+> ```lua
+> Config.CategoryOverrides = {
+>     ['weapon_smg']        = 'smg',
+>     ['weapon_microsmg']   = 'smg',
+>     ['weapon_assaultsmg'] = 'smg',
+>     ['weapon_minismg']    = 'smg',
+> }
+> ```
+>
+> Overrides are checked before any rule, so this wins.
 
 Anything that matches no rule falls to `Config.DefaultCategory` — `weapon_combatpdw`, for one, which
 is why it turns up as a sidearm.
@@ -315,11 +315,11 @@ Config.DefaultCategory = 'sidearm'
 Where a `weapon_*` item matches no rule at all. `false` refuses it outright, so it never appears in
 the list.
 
-::: warning Categories are cached until restart
-The category worked out for an item name is remembered for the lifetime of the resource. Editing
-`Config.CategoryRules` or `Config.CategoryOverrides` and reloading the config is not enough — restart
-the resource.
-:::
+> **Note — Categories are cached until restart**
+>
+> The category worked out for an item name is remembered for the lifetime of the resource. Editing
+> `Config.CategoryRules` or `Config.CategoryOverrides` and reloading the config is not enough — restart
+> the resource.
 
 Every category you use needs a `cat_<name>` line in your locale files, or the interface shows the raw
 key.
@@ -338,14 +338,14 @@ Config.Capacity = {
 | `MaxWeight` | `30.0` | Total weight the bag holds. Item weights come from your own inventory. |
 | `MaxItems` | `10` | Hard cap on filled pockets. There is no point setting it above the number of pockets. |
 
-::: warning MaxWeight is in whatever unit your inventory uses
-Only ox_inventory weights are converted — it stores grams, and they are divided by 1000, so `30.0`
-really is 30 kg. Every other inventory's weight is taken exactly as it is written in your items file.
-A qb-core item at `weight = 2500` counts as 2500 against a limit of `30.0`, so the first weapon
-stored fails with *"The bag cannot take any more weight"*. On those inventories, set `MaxWeight` in
-the same unit as your items file — `30000` for the same effective 30 kg. The figure shown in the
-interface is labelled `kg` either way.
-:::
+> **Note — MaxWeight is in whatever unit your inventory uses**
+>
+> Only ox_inventory weights are converted — it stores grams, and they are divided by 1000, so `30.0`
+> really is 30 kg. Every other inventory's weight is taken exactly as it is written in your items file.
+> A qb-core item at `weight = 2500` counts as 2500 against a limit of `30.0`, so the first weapon
+> stored fails with *"The bag cannot take any more weight"*. On those inventories, set `MaxWeight` in
+> the same unit as your items file — `30000` for the same effective 30 kg. The figure shown in the
+> interface is labelled `kg` either way.
 
 Lowering `MaxItems` below what a bag already holds does not empty it, but the next time that bag is
 picked up and put back down only the first `MaxItems` entries survive, and which ones those are is
@@ -385,13 +385,13 @@ on standalone, where there are no jobs at all.
 add_ace group.admin debux.weaponbag allow
 ```
 
-::: danger AnyoneCanPickUp means anyone can walk off with a full bag
-Picking a bag up transfers it and everything inside it to the person doing the picking. With
-`AnyoneCanPickUp = true` that is any player who finds it, with no job check and no ownership check.
-Combined with `PublicAccess = true` it also means anyone can empty a bag on the spot. Both are
-deliberate options, but neither is recoverable — there is no log of who took what unless you have the
-webhook on.
-:::
+> **Warning — AnyoneCanPickUp means anyone can walk off with a full bag**
+>
+> Picking a bag up transfers it and everything inside it to the person doing the picking. With
+> `AnyoneCanPickUp = true` that is any player who finds it, with no job check and no ownership check.
+> Combined with `PublicAccess = true` it also means anyone can empty a bag on the spot. Both are
+> deliberate options, but neither is recoverable — there is no log of who took what unless you have the
+> webhook on.
 
 ## Interface
 
@@ -470,11 +470,11 @@ pocket.
 
 A despawn is not logged, and neither is a bag deleted directly from the database.
 
-::: danger config.lua is a shared script
-Everything in `config.lua` is sent to every connected player, and that includes your webhook URL.
-Anyone who can read the client cache can pull it out and use it to spam or scrape the channel. If
-that matters to you, use a webhook in a channel you do not mind losing, and be ready to rotate it.
-:::
+> **Warning — config.lua is a shared script**
+>
+> Everything in `config.lua` is sent to every connected player, and that includes your webhook URL.
+> Anyone who can read the client cache can pull it out and use it to spam or scrape the channel. If
+> that matters to you, use a webhook in a channel you do not mind losing, and be ready to rotate it.
 
 ## Advanced
 
@@ -485,15 +485,15 @@ Config.Table = 'debux_weaponbags'
 The MySQL table. It is created on first start, and if you change this name the importer rewrites both
 the table and its index before running, so automatic creation still works.
 
-::: warning Changing this on a live server hides every existing bag
-The name is read once when the resource starts, and every query uses it. Point it at a different
-table and the bags in the old one are not deleted, but they stop existing as far as the resource is
-concerned and the world objects vanish. Point it back and they return.
-
-This is also the supported way to upgrade from the previous release without touching your database:
-set it to `'bupa_weaponbags'`. See
-[Installation](./installation#upgrading-from-the-previous-release).
-:::
+> **Note — Changing this on a live server hides every existing bag**
+>
+> The name is read once when the resource starts, and every query uses it. Point it at a different
+> table and the bags in the old one are not deleted, but they stop existing as far as the resource is
+> concerned and the world objects vanish. Point it back and they return.
+>
+> This is also the supported way to upgrade from the previous release without touching your database:
+> set it to `'bupa_weaponbags'`. See
+> [Installation](./installation#upgrading-from-the-previous-release).
 
 ```lua
 Config.SlotMap = {}

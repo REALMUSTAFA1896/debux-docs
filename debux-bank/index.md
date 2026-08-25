@@ -6,9 +6,9 @@ system jobs can bill players through, credit-scored loans, and an ATM.
 Works on **Qbox, QBCore, ESX and standalone** with no edits — the framework is detected when the
 resource starts.
 
-::: warning Draft
-This page is written but the resource is not on sale yet. Nothing here is linked from the site nav.
-:::
+> **Note — Draft**
+>
+> This page is written but the resource is not on sale yet. Nothing here is linked from the site nav.
 
 ## What players get
 

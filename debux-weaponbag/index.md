@@ -40,12 +40,12 @@ the resource — anything a player leaves lying around is searchable.
 | [oxmysql](https://github.com/overextended/oxmysql) | Yes — placed bags are stored in MySQL |
 | ox_target, qb-target or qtarget | Yes — there is no `[E]` fallback |
 
-::: warning A targeting resource is not optional
-A placed bag is only interactive through the target. If none of `ox_target`, `qb-target` or `qtarget`
-is running, the bag object still spawns and the player can walk around it, but there is no way to
-open it or pick it up. It is not lost — it stays in the database — but nobody can reach it until a
-target resource is started.
-:::
+> **Note — A targeting resource is not optional**
+>
+> A placed bag is only interactive through the target. If none of `ox_target`, `qb-target` or `qtarget`
+> is running, the bag object still spawns and the player can walk around it, but there is no way to
+> open it or pick it up. It is not lost — it stays in the database — but nobody can reach it until a
+> target resource is started.
 
 MySQL or MariaDB. One table, `debux_weaponbags`, is created on first start. The SQL file ships with
 the resource if you would rather import it yourself.
@@ -73,13 +73,13 @@ never match and the ace permission is the only way to give staff access to other
 | qb-inventory, lj-inventory, ps-inventory | `qb-inventory` | Yes |
 | Classic ESX inventories | `esx` | No |
 
-::: danger A loaded bag cannot be picked up without metadata
-The contents of a picked-up bag are stored on the item itself. On a classic ESX inventory, or with
-`Config.KeepWeaponMetadata = false`, there is nowhere to put them — so picking up a bag that has
-anything in it is refused with *"Empty the bag before picking it up"*. The bag and its contents are
-never destroyed by this, but the player has to take every weapon out by hand before the bag can be
-carried again.
-:::
+> **Warning — A loaded bag cannot be picked up without metadata**
+>
+> The contents of a picked-up bag are stored on the item itself. On a classic ESX inventory, or with
+> `Config.KeepWeaponMetadata = false`, there is nowhere to put them — so picking up a bag that has
+> anything in it is refused with *"Empty the bag before picking it up"*. The bag and its contents are
+> never destroyed by this, but the player has to take every weapon out by hand before the bag can be
+> carried again.
 
 ## Interface
 

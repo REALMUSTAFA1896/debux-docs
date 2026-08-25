@@ -132,11 +132,11 @@ Config.Cards = {
 }
 ```
 
-::: danger maxAttempts locks the card
-After `maxAttempts` wrong PINs the card is locked and the player cannot pay, withdraw or transfer
-until an admin unlocks it. That is the intended pressure, but set it to `0` to disable locking if
-your server does not want it.
-:::
+> **Warning — maxAttempts locks the card**
+>
+> After `maxAttempts` wrong PINs the card is locked and the player cannot pay, withdraw or transfer
+> until an admin unlocks it. That is the intended pressure, but set it to `0` to disable locking if
+> your server does not want it.
 
 `atmDaily = 0` means uncapped. A player must reach `minCredit` before they can order that tier.
 
@@ -186,12 +186,12 @@ Config.Loans = {
 }
 ```
 
-::: warning requireApproval needs a menu
-With `requireApproval = true` a loan stays `pending` until someone with `approverJob` acts on it, and
-a pending loan counts toward `maxActive`. If you have not wired an approval menu, the player is stuck
-after their first request. Either call the approval exports from your own job menu — see
-[Exports](./exports) — or set `requireApproval = false`.
-:::
+> **Note — requireApproval needs a menu**
+>
+> With `requireApproval = true` a loan stays `pending` until someone with `approverJob` acts on it, and
+> a pending loan counts toward `maxActive`. If you have not wired an approval menu, the player is stuck
+> after their first request. Either call the approval exports from your own job menu — see
+> [Exports](./exports) — or set `requireApproval = false`.
 
 ## Credit score
 
@@ -246,8 +246,8 @@ Config.Logs = {
 }
 ```
 
-::: danger Never move this into config.lua
-`config.lua` is a shared script — every value in it is sent to every player. A webhook URL there can
-be read out of any client and used to spam or scrape your Discord. That is why it lives in a
-server-only file.
-:::
+> **Warning — Never move this into config.lua**
+>
+> `config.lua` is a shared script — every value in it is sent to every player. A webhook URL there can
+> be read out of any client and used to spam or scrape your Discord. That is why it lives in a
+> server-only file.

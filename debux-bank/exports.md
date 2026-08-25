@@ -68,11 +68,11 @@ exports.debux_bank:handleTransaction(account, title, amount, message, issuer, re
 
 `account` accepts a job name, an account number or a citizen id — resolved in that order.
 
-::: warning qb-banking is not provided
-qb-banking's `AddMoney` / `RemoveMoney` / `GetAccount` take an **account name** where these take a
-**citizen id**. Silently resolving the wrong account is worse than a clear error, so we do not claim
-compatibility. If you need it, write a thin shim resource that maps the names.
-:::
+> **Note — qb-banking is not provided**
+>
+> qb-banking's `AddMoney` / `RemoveMoney` / `GetAccount` take an **account name** where these take a
+> **citizen id**. Silently resolving the wrong account is worse than a clear error, so we do not claim
+> compatibility. If you need it, write a thin shim resource that maps the names.
 
 ## Client events
 

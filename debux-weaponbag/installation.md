@@ -11,12 +11,12 @@ resources/
     └── debux-weaponbag/
 ```
 
-::: danger Do not rename the folder
-`server/database.lua` builds the path to its SQL file from the resource name — `debux-weaponbag`
-becomes `sql/debux_weaponbag.sql`. Rename the folder to anything else and that file is not found, so
-the table is never created and the resource starts with a console line saying the SQL file is
-missing. Keep the folder named **`debux-weaponbag`**.
-:::
+> **Warning — Do not rename the folder**
+>
+> `server/database.lua` builds the path to its SQL file from the resource name — `debux-weaponbag`
+> becomes `sql/debux_weaponbag.sql`. Rename the folder to anything else and that file is not found, so
+> the table is never created and the resource starts with a console line saying the SQL file is
+> missing. Keep the folder named **`debux-weaponbag`**.
 
 ## 2. Database
 
@@ -74,11 +74,11 @@ Two lines carry weight here.
 this export is the only way the resource learns the item was used. Without it, using the bag does
 nothing at all.
 
-::: danger consume = 0 is not optional
-Without `consume = 0`, ox_inventory removes the item the moment it is used. The bag would disappear
-from the inventory even if the player then cancels the placement with `X`. The resource removes the
-item itself, and only once the bag has actually been put down.
-:::
+> **Warning — consume = 0 is not optional**
+>
+> Without `consume = 0`, ox_inventory removes the item the moment it is used. The bag would disappear
+> from the inventory even if the player then cancels the placement with `X`. The resource removes the
+> item itself, and only once the bag has actually been put down.
 
 ### qb-inventory, lj-inventory, ps-inventory
 
@@ -120,11 +120,11 @@ INSERT INTO `items` (`name`, `label`) VALUES ('weaponbag', 'Weapon Bag');
 
 The resource registers the item through `ESX.RegisterUsableItem` on its own.
 
-::: warning Classic ESX loses ammunition and attachments
-Classic ESX inventories have no item metadata. A weapon keeps its name through the bag, but ammo
-counts, attachments, serial numbers and durability do not survive. A bag with anything in it also
-cannot be picked up at all — see [Troubleshooting](./troubleshooting#contents).
-:::
+> **Note — Classic ESX loses ammunition and attachments**
+>
+> Classic ESX inventories have no item metadata. A weapon keeps its name through the bag, but ammo
+> counts, attachments, serial numbers and durability do not survive. A bag with anything in it also
+> cannot be picked up at all — see [Troubleshooting](./troubleshooting#contents).
 
 ## 4. The item picture
 
@@ -187,11 +187,11 @@ Config.Permissions.UseAce = true
 Config.Permissions.Ace    = 'debux.weaponbag'
 ```
 
-::: warning Renamed from bupa.weaponbag
-If you are upgrading, your `server.cfg` almost certainly still grants `bupa.weaponbag`. That ace no
-longer does anything. Change the line to `debux.weaponbag`, or set `Config.Permissions.Ace` back to
-`'bupa.weaponbag'` if you would rather not touch every server that has it.
-:::
+> **Note — Renamed from bupa.weaponbag**
+>
+> If you are upgrading, your `server.cfg` almost certainly still grants `bupa.weaponbag`. That ace no
+> longer does anything. Change the line to `debux.weaponbag`, or set `Config.Permissions.Ace` back to
+> `'bupa.weaponbag'` if you would rather not touch every server that has it.
 
 The ace carries the same rights as a job on `Config.Permissions.InspectJobs` — it opens any bag, and
 it also allows picking any bag up.

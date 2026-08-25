@@ -1,10 +1,10 @@
 # Troubleshooting
 
-::: tip Read this first
-The server loads every placed bag out of `debux_weaponbags` **once, when the resource starts**, and
-works from memory after that. Editing rows in SQL does nothing visible until you restart
-`debux-weaponbag`. Every fix on this page that involves a query needs a restart afterwards.
-:::
+> **Read this first**
+>
+> The server loads every placed bag out of `debux_weaponbags` **once, when the resource starts**, and
+> works from memory after that. Editing rows in SQL does nothing visible until you restart
+> `debux-weaponbag`. Every fix on this page that involves a query needs a restart afterwards.
 
 ## Using the item does nothing
 
@@ -143,10 +143,10 @@ empty that bag:
 UPDATE `debux_weaponbags` SET `contents` = '{}' WHERE `id` = 4;
 ```
 
-::: danger That query destroys the weapons in the bag
-There is no path that returns orphaned contents to a player. Restoring the pocket id in
-`Config.Slots` is the only fix that gives them back. Look at the JSON before you decide.
-:::
+> **Warning — That query destroys the weapons in the bag**
+>
+> There is no path that returns orphaned contents to a player. Restoring the pocket id in
+> `Config.Slots` is the only fix that gives them back. Look at the JSON before you decide.
 
 **Weapons vanished from a bag after a config change.** When a bag is picked up and put back down, its
 contents are re-checked against the current config. Anything that fails is dropped and does not come
@@ -157,11 +157,11 @@ back. It fails if:
 - the bag holds more than `Config.Capacity.MaxItems`, in which case the survivors are whichever ones
   happen to be read first
 
-::: warning Have players empty their bags before you change these
-`Config.Slots`, `Config.CategoryRules`, `Config.CategoryOverrides` and `Config.Capacity.MaxItems` all
-affect bags that are already in circulation. Turn `Config.Debug` on before the change — it prints the
-raw contents of every bag as it is placed, so you can see what was dropped and why.
-:::
+> **Note — Have players empty their bags before you change these**
+>
+> `Config.Slots`, `Config.CategoryRules`, `Config.CategoryOverrides` and `Config.Capacity.MaxItems` all
+> affect bags that are already in circulation. Turn `Config.Debug` on before the change — it prints the
+> raw contents of every bag as it is placed, so you can see what was dropped and why.
 
 **Ammo counts and attachments are lost.** `Config.KeepWeaponMetadata` is `false`, or the inventory
 has no metadata. On classic ESX this cannot be fixed — the weapon keeps its name and nothing else.

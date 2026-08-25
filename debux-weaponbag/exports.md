@@ -34,10 +34,10 @@ It ignores any `event` other than `usingItem`, reads the player from `inventory`
 from `inventory.items[slot]`, remembers the bag's contents, and triggers the placement mode on that
 player's client. It returns nothing.
 
-::: warning consume = 0 or the bag disappears
-Without it, ox_inventory removes the item the moment it is used — before the player has placed
-anything. The resource removes the item itself, and only once the bag is actually on the ground.
-:::
+> **Note — consume = 0 or the bag disappears**
+>
+> Without it, ox_inventory removes the item the moment it is used — before the player has placed
+> anything. The resource removes the item itself, and only once the bag is actually on the ground.
 
 ### GetBag
 
@@ -193,11 +193,11 @@ end)
 The list carries item **names** only — no counts, no weights, no metadata. Use `GetBag` on the server
 if you need the detail.
 
-::: warning It is readable by every client
-Anything on a global state bag is replicated to every connected player, so the position and rough
-contents of every placed bag are on every client. Do not build a hiding-place script on the
-assumption that a bag's location is secret.
-:::
+> **Note — It is readable by every client**
+>
+> Anything on a global state bag is replicated to every connected player, so the position and rough
+> contents of every placed bag are on every client. Do not build a hiding-place script on the
+> assumption that a bag's location is secret.
 
 ## Ace permission
 
